@@ -1,0 +1,47 @@
+// output all combinations of capitalized/ non-capitalized letters, given an input string
+
+#include <stdio.h>
+
+void LetterToggle (char ipLtr)
+{
+    if (ipLtr >= 97 && ipLtr <= 122)
+        ipLtr -= 32;
+    else if (ipLtr >= 65 && ipLtr <= 90)
+        ipLtr += 32;
+
+    return;
+}
+
+int main()
+{
+    char inputString[] = "2ab34";
+    int letterCount = 0;
+    int counterI, counterJ;
+    int * letterPos;
+    int toggleTemp;
+    //printf("%d\n", sizeof(inputString)/sizeof(char));
+    for (counterI = 0; counterI < sizeof(inputString)/sizeof(char) - 1; counterI++)
+    {
+        if ((inputString[counterI] >= 97 && inputString[counterI] <= 122) ||
+        (inputString[counterI] >= 65 && inputString[counterI] <= 90))
+            {
+                //printf("%d\n", inputString[counterI]);
+                letterCount++;
+                *letterPos = counterI;
+                letterPos ++;
+            }
+    }
+    for (counterI = 1; counterI < (1 << (letterCount+1)); counterI++)
+    {
+        toggleTemp = counterI;
+        for (counterJ = 0; counterJ < letterCount; counterJ++)
+        {
+            if(toggleTemp>>1 == 1)
+                LetterToggle(inputString[counterJ]);
+            toggleTemp = toggleTemp>>1;
+        }
+    printf("%s\n",inputString);
+        
+    }
+    
+}
